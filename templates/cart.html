@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div x-data="{ cartOpen: false , isOpen: false }" class="bg-white">
+    {% include 'includes/navbar.html' %}
+    <main class="my-8">
+        <div class="container mx-auto px-6">
+            <div class="mt-16">
+                <h3 class="text-gray-600 text-2xl font-medium">Cart</h3>
+                <div class="flex mb-4">
+                    <div class="w-1/4">
+                        <ul class="list-outside">
+                            <li class="p-4">
+                            <a class="bg-red-500 text-black font-bold py-2 px-4 rounded-full space-y-4 ">
+                                Name :{{request.user}}
+                            </a>
+                            </li>
+                     </ul>
+                    </div>
+                    <div class=" w-auto flex flex-col">
+                        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
+                                <div class="overflow-hidden shadow-md sm:rounded-lg">
+                                    <table class="min-w-full">
+                                        <thead class="bg-gray-100 dark:bg-gray-700">
+                                            <tr>
+                                                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                                    Product
+                                                </th>
+                                                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                                    Price/each
+                                                </th>
+                                                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                                    Quantity
+                                                </th>
+                                                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                                    Price
+                                                </th>
+                                                <th scope="col" class="relative py-3 px-6">
+                                                    <span class="sr-only"></span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Product 1 -->
+                                            {% for i in cart_items %}
+                                            <tr class="border-b odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 dark:border-gray-600">
+                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{i.product.name}}
+                                                </td>
+                                                <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                    {{i.product.price}}
+                                                </td>
+                                                <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                    {{i.quantity}}
+                                                </td>
+                                                <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                    {{i.sub_total}}
+                                                </td>
+                                                <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                                                    <a href="{% url 'deleat_item' i.product.id %}" class="text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" w-auto flex flex-col">
+                        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
+                                <div class="overflow-hidden shadow-md sm:rounded-lg">
+                                    <table class="min-w-full">
+                                        <thead class="bg-gray-100 dark:bg-gray-700">
+                                            <tr>
+                                                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                                    Total Quantity
+                                                </th>
+                                                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                                    Total Price
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="border-b odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700 dark:border-gray-600">
+                                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {{quantity}}
+                                                </td>
+                                                <td class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                    {{total}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{% url 'order' %}" class="text-center" ">
+                            <button class="bg-sky-600 hover:bg-sky-700 rounded-md ...">
+                                Checkout
+                            </button>
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-200">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-gray-500 hover:text-gray-400">Brand</a>
+            <p class="py-2 text-gray-500 sm:py-0">All rights reserved</p>
+        </div>
+    </footer>
+</div>
+
+{% endblock %}
